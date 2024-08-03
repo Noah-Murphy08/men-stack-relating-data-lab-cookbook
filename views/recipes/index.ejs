@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Recipes</title>
-  </head>
-  <body>
-    <%- include('../partials/_navbar.ejs') %>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Recipes</title>
+</head>
+
+<body>
+  <%- include('../partials/_navbar.ejs') %>
     <h1>Welcome to My Recipes</h1>
-    
+
     <ul>
-        <% populatedRecipes.forEach(recipe => { %>
-         <li>
-            In order to make a <a href="/recipes/<%= recipe._id %>"><%= recipe.name %></a> you have to <%= recipe.instructions %>
-         </li>
+      <% populatedRecipes.forEach(recipe=> { %>
+        <li>
+          In order to make a <a href="/recipes/<%= recipe._id %>">
+            <%= recipe.name %>
+          </a> you have to <%= recipe.instructions %>
+        </li>
         <% }) %>
     </ul>
-    <% if (userRecipes.length > 0) { %>
-    <h2>Your Recipes</h2>
-    <ul>
-        <% userRecipes.forEach(recipe => { %>
+    <% if (userRecipes.length> 0) { %>
+      <h2>Your Recipes</h2>
+      <ul>
+        <% userRecipes.forEach(recipe=> { %>
+          <a href="/recipes/<%= recipe._id %>/edit">Edit this Recipe</a>
           <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
             <button type="submit">Delete Recipe</button>
-         <li>
-            In order to make a <a href="/recipes/<%= recipe._id %>"><%= recipe.name %></a> you have to <%= recipe.instructions %>
-         </li>
-        </form>
-        <% }) %>
-    </ul>
-    <% } else { %>
+            <li>
+              In order to make a <a href="/recipes/<%= recipe._id %>">
+                <%= recipe.name %>
+              </a> you have to <%= recipe.instructions %>
+            </li>
+          </form>
+          <% }) %>
+      </ul>
+      <% } else { %>
         <h2>Your Recipes</h2>
         <p>You have no recipes!</p>
-   <% } %>
-    <p>
-        <a href="/recipes/new">Add a New Recipe</a>
-    </p>
-  </body>
+        <% } %>
+          <p>
+            <a href="/recipes/new">Add a New Recipe</a>
+            <a href="/ingredients/new">Add an Ingredient</a>
+          </p>
+</body>
+
 </html>
